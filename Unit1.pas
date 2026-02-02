@@ -49,11 +49,16 @@ begin
 
   try
     rstrqstPaises.Execute;
-    if rstrspnsPaises.StatusCode = 200 then
+
+    if rstrspnsPaises.StatusCode <> 200 then
+    begin
+      ShowMessage('Nome de País Inválido');
+      Exit;
+    end;
+
     begin
       var JSONArr := TJSONObject.ParseJSONValue(rstrspnsPaises.Content) as TJSONArray;
       var JSON := JSONArr.Items[0] as TJSONObject;
-
 
       edtNome.Text := JSON.GetValue<TJSONObject>('name').GetValue<string>('official');
       edtCapital.Text := (JSON.GetValue('capital') as TJSONArray).Items[0].Value;
