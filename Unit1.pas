@@ -51,25 +51,21 @@ begin
     rstrqstPaises.Execute;
     if rstrspnsPaises.StatusCode = 200 then
     begin
-      var JSON := TJSONObject.ParseJSONValue(rstrspnsPaises.Content) as TJSONObject;
+      var JSONArr := TJSONObject.ParseJSONValue(rstrspnsPaises.Content) as TJSONArray;
+      var JSON := JSONArr.Items[0] as TJSONObject;
 
-      if JSON.GetValue('status').Value = '404' then
-      begin
-        ShowMessage('Nome de País Inválido');
-        Exit;
-      end;
 
-      edtNome.Text := JSON.GetValue('official').Value;
-      edtCapital.Text := JSON.GetValue('capital').Value;
-      edtRegiao.Text := JSON.GetValue('region').Value;
-      edtPopulacao.Text := JSON.GetValue('population').Value;
-      edtMoedas.Text := JSON.GetValue('currencies').Value;
+      edtNome.Text := JSON.GetValue<TJSONObject>('name').GetValue<string>('official');
+      edtCapital.Text := (JSON.GetValue('capital') as TJSONArray).Items[0].Value;
+      edtRegiao.Text := JSON.GetValue<string>('region');
+      edtPopulacao.Text := JSON.GetValue<string>('population');
+      edtMoedas.Text := JSON.GetValue<TJSONObject>('currencies').Pairs[0].JsonValue.GetValue<string>('name');
         
     end;
 
     except
       on E: Exception do
-        ShowMessage('Erro ' + E.Message);  
+        ShowMessage('Erro ' + E.Message);
   end;
 
 end;

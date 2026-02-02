@@ -27,9 +27,9 @@ object Form1: TForm1
   object lblMoedas: TLabel
     Left = 56
     Top = 480
-    Width = 67
+    Width = 59
     Height = 25
-    Caption = 'Moedas'
+    Caption = 'Moeda'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -19
