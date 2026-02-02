@@ -10,7 +10,7 @@ uses
   REST.Client, Data.Bind.Components, Data.Bind.ObjectScope;
 
 type
-  TForm1 = class(TForm)
+  TTelaPrincipal = class(TForm)
     lblNome: TLabel;
     lblCapital: TLabel;
     lblRegiao: TLabel;
@@ -34,13 +34,13 @@ type
   end;
 
 var
-  Form1: TForm1;
+  TelaPrincipal: TTelaPrincipal;
 
 implementation
 
 {$R *.dfm}
 
-procedure TForm1.edtPesquisarExit(Sender: TObject);
+procedure TTelaPrincipal.edtPesquisarExit(Sender: TObject);
 var pesquisar: string;
 
 begin
